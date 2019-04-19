@@ -45,7 +45,7 @@ class TuitionAdminLogin extends React.Component {
     super(props);
     // we use this to make the card to appear after the page has been rendered
     this.state = {
-	    AttemptedUserName: '',
+	    AteemtedEmail: '',
 		AttemptedPassword: '',
 		login_error:true,
 		response:null,
@@ -75,7 +75,7 @@ class TuitionAdminLogin extends React.Component {
 		
 		
 		
-      axios.post(ip+'/user_login', querystring.stringify({ AttemptedStaffNo: this.state.AttemptedUserName,AttemptedPassword: this.state.AttemptedPassword }))
+      axios.post(ip+'/user_login', querystring.stringify({ AteemtedEmail: this.state.AteemtedEmail,AttemptedPassword: this.state.AttemptedPassword }))
 		.then((response) => {
         this.setState({
           ...this.state,
@@ -84,9 +84,9 @@ class TuitionAdminLogin extends React.Component {
 		  response:response
 			
         });
-		  console.log(this.state.AttemptedUserName);
-        window.sessionStorage.setItem("StaffNo", response.data.StaffNo);
-		window.sessionStorage.setItem("Surname", response.data.Surname); 
+		  
+        window.sessionStorage.setItem("UserId", response.data.UserId);
+		window.sessionStorage.setItem("Name", response.data.Name); 
 		this.my_router();
     } )
      .catch((response) => {
@@ -111,7 +111,7 @@ class TuitionAdminLogin extends React.Component {
 	
 	
 	my_router = () => {
-		if(!(this.state.login_error)){this.props.history.push('/Admin/config_department_types');}else{alert(this.state.response.data.error_msg);}
+		if(!(this.state.login_error)){this.props.history.push('/Admin/term_iterations_config');}else{alert(this.state.response.data.error_msg);}
     
   }
 	
@@ -182,7 +182,7 @@ class TuitionAdminLogin extends React.Component {
                           <i className="nc-icon nc-single-02" />
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input placeholder="Staff Number" type="text" name="AttemptedUserName" value={this.state.AttemptedUserName} onChange={this.handleChange} autofocus />
+                      <Input placeholder="Email" type="text" name="AteemtedEmail" value={this.state.AteemtedEmail} onChange={this.handleChange} autofocus />
                     </InputGroup>
 
                     <InputGroup>
